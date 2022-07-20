@@ -106,7 +106,7 @@ RegisterCommand('timeout', function(source, args, raw)
         if GetPlayerPing(_target) > 1 and GetPlayerRoutingBucket(_target) ~= 666 then
             _TargetString = GetPlayerName(_target) .. " [ " .. _target .. " ]"
             _StaffString = GetPlayerName(source) .. " [ " .. source .. " ]"
-            if _time then 
+            if _time and _time < 999999 then 
                 if _reason ~= "" then 
                     TriggerClientEvent('_ForcePunishment', _target, _time, _reason, _StaffString)
                     if sv_config.AutoSendPurgatory == true then 
