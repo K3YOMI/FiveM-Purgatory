@@ -8,7 +8,7 @@
 ## ❌ Description
 Timeout-based system to punish players that are being disruptive in your server. [Includes auto-discord Invite]\
 ### Commands
-- timeout [ID] [Time-Seconds] [Reason]
+- timeout [ID] [Time-Seconds] [Reason] (Max Time is 999999 Seconds)
 - timeout-remove [ID] [Reason]
 
 ## 🔨 Languages Used
