@@ -18,8 +18,10 @@ function _isAcePermissionsAllowed(source) -- Returns true if the player is allow
     return false
 end
 function _disableEntity()
-    if sv_config.PurgatoryPermissions.DisableAllEntityCreation == true then
+   if sv_config.PurgatoryPermissions.DisableAllEntityCreation == true then
         SetRoutingBucketEntityLockdownMode(666, 'strict')
+    else
+        SetRoutingBucketEntityLockdownMode(666, 'inactive')
     end
 end
 function _logLeave(reason) -- Logs the player's purgatory history when they leave the server.
