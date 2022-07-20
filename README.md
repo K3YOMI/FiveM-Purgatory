@@ -6,7 +6,10 @@
 <a href="https://discordapp.com/users/359794704847601674"><img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white" alt="Kiyomi#9081" ></a>
 
 ## ❌ Description
-Timeout-based system to punish players that are being disruptive in your server. [Includes auto-discord Invite]
+Timeout-based system to punish players that are being disruptive in your server. [Includes auto-discord Invite]\
+### Commands
+- timeout [ID] [Time-Seconds] [Reason]
+- timeout-remove [ID] [Reason]
 
 ## 🔨 Languages Used
 ![LUA](https://custom-icon-badges.herokuapp.com/badge/Lua-black.svg?logo=lua&logoColor=blue)
