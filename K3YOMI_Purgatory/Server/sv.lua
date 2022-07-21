@@ -27,9 +27,10 @@ end
 function _logLeave(reason) -- Logs the player's purgatory history when they leave the server.
     if sv_config.PurgatoryPermissions.LogLeaves == true then
         local _data = getPlayerData(source)
+        if _data then
         local _Format = {Staff_Member = _data['Staff Member'],Player_Sent = _data['Target'],Violation_Reason = _data['Reason'],Total_Time = _data['TotalTime'],Time_Remaining = _data['Time'],Leave_Reason = reason,}
         _discordLog("[LEFT-DURING-TIMEOUT]", '```'.._convertTables(json.encode((_Format)))..'```')
-    end
+    end end
 end
 function _discordLog(title, description) -- Logs the message to the Discord webhook.
     local _embedStyle = {{["color"] = 16777215,["title"] = title,["description"] = description,["footer"] = {  ["text"] = "Logged : " ..os.date("%Y-%m-%d %H:%M:%S"),},}}
