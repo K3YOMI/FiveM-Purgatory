@@ -27,7 +27,7 @@ end
 function _logLeave(reason) -- Logs the player's purgatory history when they leave the server.
     if sv_config.PurgatoryPermissions.LogLeaves == true then
         local _data = getPlayerData(source)
-        if _data then
+        if _data ~= "NULL" then
         local _Format = {Staff_Member = _data['Staff Member'],Player_Sent = _data['Target'],Violation_Reason = _data['Reason'],Total_Time = _data['TotalTime'],Time_Remaining = _data['Time'],Leave_Reason = reason,}
         _discordLog("[LEFT-DURING-TIMEOUT]", '```'.._convertTables(json.encode((_Format)))..'```')
     end end
@@ -42,6 +42,7 @@ function getPlayerData(id) -- Returns the player's data.
             return v
         end
     end
+    return "NULL"
 end
 function _convertTables(_data) -- Converts the tables to a string. [Easier to read]
     local string = string.gsub(_data, ",","\n")
