@@ -1,5 +1,5 @@
 sv_config = {}
-sv_config.AllowedPermission = "FiveM.Admin" -- Permission required to use the command (/timeout [ID] [Seconds])
+sv_config.AllowedPermission = "FiveM.Admin" -- Permission required to use the command (/timeout [ID] [Seconds]) [AcePermissions]
 sv_config.AutoSendPurgatory = true -- If true, the player will be automatically sent to the purgatory server when being sent for rule violation.
 sv_config.DiscordWebhook = ""
 sv_config.PurgatoryPermissions = {
