@@ -1,6 +1,3 @@
-
-
--- Also if you are a cheating reading this, you can change the config to your liking but the server uses this mostly. lol
 _config = {}
 _config.inviteDiscord = "https://discord.gg/XXXXX" -- Discord invite link
 _config.ForceDiscordInvite = true -- If true, the player will be forced to show an invite on their discord client to the directed discord server
