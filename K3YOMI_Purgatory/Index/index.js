@@ -1,3 +1,4 @@
+// This basically just shows the countdown timer...
 window.addEventListener('message', (event) => {
     if (event.data.type === 'open') {
         $('.container').show();
