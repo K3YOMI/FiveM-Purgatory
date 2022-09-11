@@ -8,8 +8,21 @@
 ## ❌ Description
 Timeout-based system to punish players that are being disruptive in your server. [Includes auto-discord Invite]\
 ### Commands
-- timeout [ID] [Time-Seconds] [Reason] (Max Time is 999999 Seconds)
-- timeout-remove [ID] [Reason]
+**Timeout** (*Sends a player from purgatory with a reason*)
+- Arguments
+    - ID
+    - TIME (SECONDS)
+    - REASON [Optional]
+
+**Timeout-Remove** (*Removes a player from purgatory with a reason*)
+- Arguments
+    - ID
+    - REASON [Optional]
+
+
+**toggle_auto** (*Enables/Disables the AntiRDM/VDM Functionality*)
+- Arguments
+    - N/A
 
 ## 🔨 Languages Used
 ![LUA](https://custom-icon-badges.herokuapp.com/badge/Lua-black.svg?logo=lua&logoColor=blue)
