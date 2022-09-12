@@ -63,7 +63,7 @@ Citizen.CreateThread(function()
                 if v['Time'] > 0 and GetPlayerName(v['ID']) then
                     v['Time'] = v['Time'] - 1
                 elseif v['Time'] == 0 and GetPlayerName(v['ID']) then
-                    _hasVehicle = GetVehiclePedIsIn(GetPlayerPed(_target), false)
+                    _hasVehicle = GetVehiclePedIsIn(GetPlayerPed(tonumber(v['ID']), false)
                     if _hasVehicle == 0 then 
                         SetPlayerRoutingBucket(tonumber(v['ID']), 0)
                     else 
