@@ -1,7 +1,7 @@
 sv_config = {}
 sv_config.AllowedPermission = "FiveM.Admin" -- Permission required to use the command (/timeout [ID] [Seconds])
 sv_config.AutoSendPurgatory = true -- If true, the player will be automatically sent to the purgatory server when being sent for rule violation.
-sv_config.DiscordWebhook = "https://discord.com/api/webhooks/997739328652447744/96K31dyrZomFspRV3xQDCfkPpDhrM7OOXXq4E_O2t8bmuM2SU8ip5uc-G8D4o3l6MKm9"
+sv_config.DiscordWebhook = ""
 sv_config.AntiRD_AND_VDM = true -- If true, the anti rdm/vdm system will automatically enable per server/resource restart.
 sv_config.TotalAmount = 1 -- The amount of times a player can kill before being sent to purgatory.
 sv_config.PurgatoryPermissions = {
