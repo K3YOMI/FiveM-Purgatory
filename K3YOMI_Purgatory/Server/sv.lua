@@ -1,11 +1,12 @@
 sv_config = {}
 sv_config.AllowedPermission = "FiveM.Admin" -- Permission required to use the command (/timeout [ID] [Seconds])
-sv_config.AutoSendPurgatory = false -- If true, the player will be automatically sent to the purgatory server when being sent for rule violation.
-sv_config.DiscordWebhook = ""
-sv_config.AntiRD_AND_VDM = false -- If true, the anti rdm/vdm system will automatically enable per server/resource restart.
+sv_config.AutoSendPurgatory = true -- If true, the player will be automatically sent to the purgatory server when being sent for rule violation.
+sv_config.DiscordWebhook = "https://discord.com/api/webhooks/997739328652447744/96K31dyrZomFspRV3xQDCfkPpDhrM7OOXXq4E_O2t8bmuM2SU8ip5uc-G8D4o3l6MKm9"
+sv_config.AntiRD_AND_VDM = true -- If true, the anti rdm/vdm system will automatically enable per server/resource restart.
+sv_config.TotalAmount = 1 -- The amount of times a player can kill before being sent to purgatory.
 sv_config.PurgatoryPermissions = {
-    DisableAllEntityCreation = false, -- Disables all entity creation.
-    LogLeaves = false, -- When a player leaves the server, it will log the player's purgatory history.
+    DisableAllEntityCreation = true, -- Disables all entity creation.
+    LogLeaves = true, -- When a player leaves the server, it will log the player's purgatory history.
 }
 
 
@@ -54,6 +55,14 @@ function _convertTables(_data) -- Converts the tables to a string. [Easier to re
     local string5 = string.gsub(string4, ':'," : ")
     return string5
 end
+
+Citizen.CreateThread(function()
+    while true do 
+        Citizen.Wait(60 * 1000)
+        KILLERS_TOTAL_KILLS = {}
+    end
+end)
+
 Citizen.CreateThread(function()
     while true do 
         Citizen.Wait(1 * 1000)
@@ -63,7 +72,7 @@ Citizen.CreateThread(function()
                 if v['Time'] > 0 and GetPlayerName(v['ID']) then
                     v['Time'] = v['Time'] - 1
                 elseif v['Time'] == 0 and GetPlayerName(v['ID']) then
-                    _hasVehicle = GetVehiclePedIsIn(GetPlayerPed(tonumber(v['ID']), false)
+                    _hasVehicle = GetVehiclePedIsIn(GetPlayerPed(v['ID']), false)
                     if _hasVehicle == 0 then 
                         SetPlayerRoutingBucket(tonumber(v['ID']), 0)
                     else 
@@ -121,10 +130,10 @@ RegisterCommand("toggle_auto", function(source, args, raw)
     if _isAcePermissionsAllowed(source) then
         if sv_config.AntiRD_AND_VDM == true then
             sv_config.AntiRD_AND_VDM = false
-            TriggerClientEvent('chat:addMessage', source, {args = {"^1[Auto-Purgatory] ^0Anti-RD & VDM has been ^1disabled^0."}})
+            TriggerClientEvent('chat:addMessage', -1, {args = {"^1[Auto-Purgatory] ^0Anti-RDM & VDM has been ^1disabled^0."}})
         else
             sv_config.AntiRD_AND_VDM = true
-            TriggerClientEvent('chat:addMessage', source, {args = {"^1[Auto-Purgatory] ^0Anti-RD & VDM has been ^2enabled^0."}})
+            TriggerClientEvent('chat:addMessage', -1, {args = {"^1[Auto-Purgatory] ^0Anti-RDM & VDM has been ^2enabled^0."}})
         end
     end
 end)
@@ -244,17 +253,17 @@ function validateDeath(killerDiscovered, victimDiscovered, deathSequence)
     if distanceCheck == true and idCheck == true and isKilled == true then 
         return true
     else 
-        timeoutAuto(victimDiscovered, 120000, "Spoofing Detected // This could be a false positive, please contact a staff member if you believe this is a mistake.")
+        timeoutAuto(victimDiscovered, 120000, "Spoofing Detected // You lil stink...")
         return false
     end
 end
-
 RegisterNetEvent('Purgatory:Server:PlayerDeathRecordTime')
-AddEventHandler('Purgatory:Server:PlayerDeathRecordTime', function()
-    if sv_config.AntiRD_AND_VDM == true then
+AddEventHandler('Purgatory:Server:PlayerDeathRecordTime', function(killedBy, data)
+    if sv_config.AntiRD_AND_VDM == true and GetEntityHealth(GetPlayerPed(source)) == 0 then
         LAST_TIME_KILLED_TABLE[source] = {Time = os.time()}
     end
 end)
+
 
 
 RegisterNetEvent("Purgatory:Server:PlayerDeathRecorded")
@@ -268,16 +277,23 @@ AddEventHandler("Purgatory:Server:PlayerDeathRecorded", function(killerID, cause
         else
             local isWhitelisted = _isAcePermissionsAllowed(killerIDInt)
             local validateDeath = validateDeath(killerIDInt, victimIDInt, causeOfDeath)
-            if isWhitelisted == false and validateDeath == true then 
+            if isWhitelisted == true and validateDeath == true then 
                 checkAttackerTable = KILLERS_TOTAL_KILLS[killerIDInt]
                 if checkAttackerTable ~= nil then 
                     checkAttackerTable['totalKills'] = checkAttackerTable['totalKills'] + 1
-                    if checkAttackerTable['totalKills'] > 1 then 
+                    if checkAttackerTable['totalKills'] >= sv_config.TotalAmount then 
                         timeoutAuto(killerIDInt, 120, causeOfDeath)
                         KILLERS_TOTAL_KILLS[killerIDInt] = nil
                     end
                 else
                     KILLERS_TOTAL_KILLS[killerIDInt] = {totalKills = 1}
+                    checkAttackerTable = KILLERS_TOTAL_KILLS[killerIDInt]
+                    if checkAttackerTable ~= nil then 
+                        if checkAttackerTable['totalKills'] >= sv_config.TotalAmount then 
+                            timeoutAuto(killerIDInt, 120, causeOfDeath)
+                            KILLERS_TOTAL_KILLS[killerIDInt] = nil
+                        end
+                    end
                 end
             end
         end
