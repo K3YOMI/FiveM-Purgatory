@@ -42,13 +42,15 @@ _config.ForceDiscordInvite = true -- If true, the player will be forced to show 
 ```lua
 sv_config = {}
 sv_config.AllowedPermission = "FiveM.Admin" -- Permission required to use the command (/timeout [ID] [Seconds])
-sv_config.AutoSendPurgatory = false -- If true, the player will be automatically sent to the purgatory server when being sent for rule violation.
+sv_config.AutoSendPurgatory = true -- If true, the player will be automatically sent to the purgatory server when being sent for rule violation.
 sv_config.DiscordWebhook = ""
-sv_config.AntiRD_AND_VDM = false -- If true, the anti rdm/vdm system will automatically enable per server/resource restart.
+sv_config.AntiRD_AND_VDM = true -- If true, the anti rdm/vdm system will automatically enable per server/resource restart.
+sv_config.TotalAmount = 1 -- The amount of times a player can kill before being sent to purgatory.
 sv_config.PurgatoryPermissions = {
-    DisableAllEntityCreation = false, -- Disables all entity creation.
-    LogLeaves = false, -- When a player leaves the server, it will log the player's purgatory history.
+    DisableAllEntityCreation = true, -- Disables all entity creation.
+    LogLeaves = true, -- When a player leaves the server, it will log the player's purgatory history.
 }
+
 
 ```
 
